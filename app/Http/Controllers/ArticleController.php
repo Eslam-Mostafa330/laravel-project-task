@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\article;
 use App\Models\category;
 use App\Models\User;
+use App\Repository\ArticleInterface;
 // use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,12 +15,21 @@ use Illuminate\View\View;
 
 class ArticleController extends Controller
 {
+
+    private $ArticleRepository; 
+
+    public function __construct(ArticleInterface $Article)
+    {
+        $this->ArticleRepository = $Article;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
-        $articles = article::all();
+        $articles = $this->ArticleRepository->index();
+        // $articles = article::all();
         return view("admin.article.index", compact('articles'));
     }
 

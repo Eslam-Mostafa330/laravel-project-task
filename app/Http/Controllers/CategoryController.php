@@ -6,6 +6,7 @@ use App\Models\category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -17,10 +18,12 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(): mixed
     {
         $categories = category::all();
         return view('admin.category.index', compact('categories'));
+        // $categories = DB::table("categories")->get();
+        // return response()->json(["status" => 200, "data" => $categories]);
     }
 
     /**
